@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- App icon: a photo (sun + mountains) on the app's accent blue. -->
+  <rect width="64" height="64" rx="14" fill="#2f6fed"/>
+  <rect x="12" y="16" width="40" height="32" rx="4" fill="#ffffff"/>
+  <circle cx="23" cy="26" r="4" fill="#f5b83d"/>
+  <path d="M14 46 L27 32 L35 40 L41 34 L50 46 Z" fill="#2f6fed" opacity="0.85"/>
+</svg>

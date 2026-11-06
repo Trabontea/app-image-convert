@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image → WebP</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Image → WebP</h1>
+    <p class="sub">Resize photos to an exact resolution and convert them to WebP. Everything runs locally.</p>
+
+    <label id="dropzone" class="dropzone">
+      <input id="fileInput" type="file" accept="image/*" multiple hidden>
+      <strong>Drop images here</strong>
+      <span>or click to choose files</span>
+    </label>
+
+    <ul id="fileList" class="file-list"></ul>
+
+    <form id="options" class="options">
+      <label>Width (px)
+        <input id="width" type="number" min="1" max="10000" value="1280" required>
+      </label>
+      <span class="times">×</span>
+      <label>Height (px)
+        <input id="height" type="number" min="1" max="10000" value="720" required>
+      </label>
+      <label class="quality">Quality <output id="qualityOut">80</output>
+        <input id="quality" type="range" min="1" max="100" value="80">
+      </label>
+      <button id="convertBtn" type="submit" disabled>Convert</button>
+    </form>
+
+    <p id="status" class="status" role="status"></p>
+
+    <!-- Shown after a successful conversion; the file only downloads when this is clicked. -->
+    <a id="downloadLink" class="download" hidden>Download</a>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

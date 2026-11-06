@@ -3,14 +3,52 @@
   "version": "1.0.0",
   "description": "Local app to resize photos to an exact resolution and convert them to WebP",
   "type": "module",
-  "main": "server.js",
+  "main": "electron/main.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "desktop": "electron .",
+    "dist": "electron-builder --win"
   },
   "dependencies": {
     "archiver": "^7.0.1",
     "express": "^4.21.2",
     "multer": "^2.0.2",
     "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0"
+  },
+  "author": "Trabontea",
+  "build": {
+    "appId": "com.trabontea.imagestowebp",
+    "productName": "Image to WebP",
+    "files": [
+      "electron/**",
+      "src/**",
+      "public/**",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/sharp/**",
+      "node_modules/@img/**"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "portable": {
+      "artifactName": "${productName} Portable ${version}.exe"
+    },
+    "directories": {
+      "output": "dist"
+    }
   }
 }

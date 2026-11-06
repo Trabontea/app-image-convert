@@ -16,6 +16,22 @@ To use another port: `PORT=3124 npm start` (Git Bash) or `$env:PORT=3124; npm st
 
 > npm may block Sharp's install script. Sharp still works from its prebuilt binaries; if it fails to load, run `npm install-scripts approve sharp`.
 
+## Desktop app (Electron)
+
+```bash
+npm run desktop   # open the app in a desktop window (development)
+npm run dist      # build Windows installers into dist/
+```
+
+`npm run dist` produces:
+
+- `dist/Image to WebP Setup <version>.exe`: an installer that adds Start-menu and desktop shortcuts.
+- `dist/Image to WebP Portable <version>.exe`: a single exe that runs without installing.
+
+The desktop app reuses the same server and UI. `electron/main.js` starts `src/app.js` on a random free port on `127.0.0.1` (it is not reachable from the network) and opens it in a window. **Download** opens the native Save dialog. The installers are unsigned, so Windows SmartScreen may warn the first time you run them.
+
+> If `npm run desktop` says Electron "failed to install correctly", run `node node_modules/electron/install.js` to download its binary.
+
 ## How it works
 
 ### Overview
@@ -82,6 +98,8 @@ curl -o out.zip  -F width=800 -F height=600 -F images=@a.jpg -F images=@b.png ht
 
 ```text
 server.js                         Entry point: starts the server
+electron/main.js                  Desktop entry: runs src/app.js on a random port and opens a window
+build/icon.png                    App icon used by electron-builder
 src/
   app.js                          Express setup: static files, /api routes, error handler
   config/index.js                 Port and limits

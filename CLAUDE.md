@@ -16,6 +16,13 @@ A local web app that resizes uploaded photos to an **exact** width × height (st
   ```
   Multiple `-F images=@...` returns a zip instead.
 - `node --check <file>` for a quick syntax check.
+- `npm run desktop` — run as an Electron desktop app. `npm run dist` — build the NSIS installer and portable exe into `dist/` (electron-builder; config in the `build` block of `package.json`).
+
+## Desktop (Electron)
+
+`electron/main.js` (the package `main`) imports `src/app.js`, listens on `127.0.0.1:0` (a random port, which it logs), and loads that URL in a `BrowserWindow`. The frontend is identical to the browser version; Electron's default download handling gives `<a download>` a Save dialog. Sharp and `@img/*` are listed in `asarUnpack` because native `.node` binaries can't load from inside the asar. To test the API of a running desktop app, curl the logged port. If the Electron binary is missing (npm install-script blocking), run `node node_modules/electron/install.js`.
+
+When launched from Claude Code's sandboxed shell, Chromium's renderer sandbox can't start: the window stays blank (`ERR_FAILED (-2)`, plus repeated `GPUPersistentCache ... being used by another process` errors). The server still answers curl. To check the UI, have the user run `npm run desktop` from their own terminal.
 
 ## Architecture
 

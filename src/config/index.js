@@ -11,5 +11,5 @@ export const config = {
   /** Most files accepted in one request. */
   maxFiles: 50,
   /** WebP quality used when the client doesn't send one (1–100). */
-  defaultQuality: 80,
+  defaultQuality: 90,
 };

@@ -34,7 +34,7 @@ Request flow for the single endpoint, `POST /api/convert`:
 Layering rules:
 - Services know nothing about HTTP; controllers do the request/response work.
 - Errors carry their own HTTP status: throw `BadRequest` (400) or `UnprocessableImage` (422) from `utils/errors.js`; `middlewares/errorHandler.js` turns any error with `.status` (and multer errors) into `{ error: "message" }` JSON, everything else into a logged 500. The handler must keep its 4-parameter signature or Express won't treat it as an error handler.
-- Limits (port, max dimension 10000, 25 MB/file, 50 files, default quality 80) live in `src/config/index.js`.
+- Limits (port, max dimension 10000, 25 MB/file, 50 files, default quality 90) live in `src/config/index.js`.
 
 Frontend (`public/app.js`): keeps selected files in memory, POSTs `FormData` with the same field names the server expects, and on success shows a Download link (an object URL) instead of auto-downloading. The link is cleared whenever the files or options change. Error messages shown in the UI come from the server's `error` field.
 

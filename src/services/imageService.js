@@ -22,8 +22,17 @@ export async function convertToWebp(buffer, { width, height, quality }, original
   try {
     return await sharp(buffer)
       .rotate() // apply EXIF orientation so phone photos aren't sideways
-      .resize(width, height, { fit: 'fill' }) // 'fill' = exact size, ignore aspect ratio
-      .webp({ quality })
+      .resize(width, height, { fit: 'fill', kernel: 'lanczos3' }) // 'fill' = exact size, ignore aspect ratio
+      .webp(
+        quality === 100
+          ? { lossless: true, effort: 6 } // 100 = pixel-perfect, no compression artifacts
+          : {
+              quality,
+              alphaQuality: 100, // keep transparent edges crisp
+              smartSubsample: true, // sharper colour edges than plain 4:2:0 subsampling
+              effort: 6, // slowest/best encoder search (0–6); better quality per byte
+            },
+      )
       .toBuffer();
   } catch {
     throw new UnprocessableImage(`Could not process "${originalName}"`);
